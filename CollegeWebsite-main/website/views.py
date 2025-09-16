@@ -4,6 +4,7 @@ from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Record
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -37,7 +38,9 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            return(form)
+            messages.success(request, "Account created successfully!")
+            return redirect('login')
+        return(form)
     context = {'form' : form}
 
     return render(request, 'pages/register.html', context=context)
@@ -85,3 +88,16 @@ def update_record(request, pk):
     context = {'update_form': form}
     return render(request, 'pages/update_record.html', context=context)
 
+# read a single record
+@login_required(login_url='login')
+def singular_record (request, pk):
+    one_record = Record.objects.get(id=pk)
+    context = {'record':one_record}
+    return render(request, 'pages/view_record.html', context=context)
+
+@login_required(login_url='login')
+def delete_record(request,pk):
+    record = Record.objects.get(id=pk)
+    record.delete()
+
+    return redirect("dashboard")

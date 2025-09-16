@@ -29,7 +29,9 @@
             <td>{{Record.address}}</td>
             <td>{{Record.city}}</td>
             <td>{{Record.creation_data}}</td>
-            <td>To Finish</td>
+            <td>
+              <a class="btn btn-primary"  href="{% url 'record' Record.id %}">View Record</a>
+            </td>
         </tr>
     {% endfor %}
 {% endif %}

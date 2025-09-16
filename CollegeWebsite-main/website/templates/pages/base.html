@@ -8,12 +8,22 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap5.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     {% include 'components/navbar.html' %}
     <div class="container">
-        {% block content %}
 
+        <br>
+
+        {% for message in messages%}
+            {% if message.txt == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <p id="message-timer" class="alert alert-success float-center text-center message-text">
+                    <i class="fa fa-check" aria-hidden="true"></i> &nbsp; {{message}}
+                </p>
+            {% endif %}
+            {% endfor %}
+        {% block content %}
         {% endblock %}
     </div>
 </body>

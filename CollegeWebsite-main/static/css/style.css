@@ -9,3 +9,9 @@ svg{
 col{
     color: white;
 }
+
+hr{
+    color: black;
+    height: 5px;
+    
+}
